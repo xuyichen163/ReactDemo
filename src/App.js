@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    render() {
+        return (
+            <ul className="my-list">
+                <li> {false?"JSPang.com":"技术"}</li>
+                <li> React deom </li>
+            </ul>
+        )
+
+        //     var child1 = React.createElement('li',null,'JSPang.com')
+        //     var child2 = React.createElement('li',null,'React')
+        //     var root = React.createElement('ul',{className = 'my-list'},child1,child2);
+    }
 }
 
 export default App;
