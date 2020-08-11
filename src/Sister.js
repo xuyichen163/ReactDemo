@@ -1,6 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import './Sister.css'
+// import axios from 'axios';
+import './Sister.css';
+
 import SisiterItem from './SisiterItem';
+import Sun from './Sun';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 class Sister extends Component {
     // 生命周期函数指在某一个时刻组件会自动调用执行的函数
@@ -16,9 +20,18 @@ class Sister extends Component {
     // UNSAFE_componentWillMount() {
     //     console.log('componentWillMount----组件将要挂载到页面的时刻')
     // };
-    // componentDidMount() {
-    //     console.log('componentDidMount----组件挂载完成的时刻执行')
-    // };
+    componentDidMount() {
+        console.log('componentDidMount----组件挂载完成的时刻执行');
+        // axios.post('https://web-api.juejin.im/v3/web/wbbr/bgeda')
+        // .then((res)=>{
+        //     console.log("axios 获取成功"+JSON.stringify(res))
+
+        //     this.setState({
+        //         list:res.data.data
+        //     })
+        // })
+        // .catch((error)=>{console.log("axios 获取数据失败"+error)});
+    };
 
     // shouldComponentUpdate() {
     //     console.log("1-shouldComponentUpdate---组件发生改变前执行");
@@ -32,7 +45,7 @@ class Sister extends Component {
     // }
     // render函数是只要有state和props变化就会执行
 
-    
+
     render() {
         // console.log('3-render---组件挂载中.......')
         return (
@@ -49,33 +62,34 @@ class Sister extends Component {
                     <button onClick={this.addList.bind(this)}>增加服务</button>
                 </div>
                 <ul ref={(ul) => { this.ul = ul }}>
-                    {
-                        this.state.list.map((item, index) => {
-                            return (
+                    <TransitionGroup>
 
-                                /*<li
-                                  key={index + item}
-                                  onClick={this.deleteItem.bind(this, index)}
-                                  dangerouslySetInnerHTML={{__html:item}}
-                              >                                  
-                              </li>
-                              */
+                        {
+                            this.state.list.map((item, index) => {
+                                return (
+                                    <CSSTransition
+                                        timeout={2000}
+                                        classNames="Sun-text"
+                                        unmountOnExit
+                                        appear={true}
+                                        key={index+item}
+                                    >
+                                        <SisiterItem
+                                            key={index + item}
+                                            //给子组件传递index
+                                            content={item}
+                                            index={index}
 
-
-                                <SisiterItem
-                                    key={index + item}
-                                    //给子组件传递index
-                                    content={item}
-                                    index={index}
-
-                                    //向子组件传递 deleteItem方法
-                                    deleteItem={this.deleteItem.bind(this)}
-                                />
-
-                            )
-                        })
-                    }
+                                            //向子组件传递 deleteItem方法
+                                            deleteItem={this.deleteItem.bind(this)}
+                                        />
+                                    </CSSTransition>
+                                )
+                            })
+                        }
+                    </TransitionGroup>
                 </ul>
+                <Sun />
             </Fragment>
         )
     };
